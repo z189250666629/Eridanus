@@ -24,3 +24,19 @@ log/
 *~
 
 data/
+
+# 敏感配置文件
+config/basic_config.yaml
+config/censor_user.yaml
+config/censor_group.yaml
+plugins/ai_llm/config.yaml
+plugins/Grok2api/config.yaml
+plugins/anime_game_service/config.yaml
+plugins/basic_plugin/config.yaml
+plugins/groupManager/config.yaml
+plugins/streaming_media/bili_dynamic.yaml
+web/user_info.yaml
+plan/
+dump.rdb
+web/chat_files/
+.claude/

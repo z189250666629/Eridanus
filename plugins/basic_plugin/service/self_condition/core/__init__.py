@@ -11,7 +11,9 @@ from core.draw import *
 from PIL import Image as PImage
 from core.config.manager import YAMLManager
 try:config = YAMLManager.get_instance()
-except Exception as e:config = YAMLManager("run")
+except Exception as e:
+    from core.config.constants import PLUGINS_DIR, CORE_CONFIG_DIR
+    config = YAMLManager(PLUGINS_DIR, CORE_CONFIG_DIR)
 botname = config.common_config.basic_config["bot"]
 import gc
 

@@ -41,17 +41,39 @@ class RedisCacheManager:
     def _is_running_in_docker() -> bool:
         return os.path.exists("/.dockerenv") or os.environ.get("IN_DOCKER") == "1"
 
+    REDIS_DOWNLOAD_URL = "https://github.com/tporadowski/redis/releases/download/v5.0.14.1/Redis-x64-5.0.14.1.zip"
+
+    @classmethod
+    def _download_redis_zip(cls):
+        """Download Redis zip from GitHub if not present locally."""
+        if os.path.exists(cls.REDIS_ZIP_PATH):
+            return True
+        logger.info("⬇️ 本地未找到 Redis 压缩包，正在从 GitHub 下载...")
+        try:
+            import urllib.request
+            os.makedirs(os.path.dirname(cls.REDIS_ZIP_PATH), exist_ok=True)
+            urllib.request.urlretrieve(cls.REDIS_DOWNLOAD_URL, cls.REDIS_ZIP_PATH)
+            logger.info("✅ Redis 下载完成")
+            return True
+        except Exception as exc:
+            logger.error(f"❌ Redis 下载失败: {exc}")
+            return False
+
     @classmethod
     def _extract_redis_from_local_zip(cls):
-        if not os.path.exists(cls.REDIS_FOLDER):
-            os.makedirs(cls.REDIS_FOLDER)
-            logger.info("📦 正在从本地压缩包解压 Redis...")
-            try:
-                with zipfile.ZipFile(cls.REDIS_ZIP_PATH, "r") as zip_ref:
-                    zip_ref.extractall(cls.REDIS_FOLDER)
-                logger.info("✅ Redis 解压完成")
-            except Exception as exc:
-                logger.error(f"❌ Redis 解压失败: {exc}")
+        redis_exe = os.path.join(cls.REDIS_FOLDER, cls.REDIS_EXECUTABLE)
+        if os.path.exists(redis_exe):
+            return
+        if not cls._download_redis_zip():
+            return
+        os.makedirs(cls.REDIS_FOLDER, exist_ok=True)
+        logger.info("📦 正在从本地压缩包解压 Redis...")
+        try:
+            with zipfile.ZipFile(cls.REDIS_ZIP_PATH, "r") as zip_ref:
+                zip_ref.extractall(cls.REDIS_FOLDER)
+            logger.info("✅ Redis 解压完成")
+        except Exception as exc:
+            logger.error(f"❌ Redis 解压失败: {exc}")
 
     @classmethod
     def _start_redis_background(cls):

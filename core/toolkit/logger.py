@@ -164,6 +164,11 @@ class LoggerWrapper:
         if self._logger.isEnabledFor(logging.ERROR):
             self._log_with_category(logging.ERROR, message, None, *args, **kwargs)
 
+    def exception(self, message, *args, **kwargs):
+        if self._logger.isEnabledFor(logging.ERROR):
+            self._check_and_update_log_file()
+            self._logger.exception(message, *args, **kwargs)
+
     def critical(self, message, *args, **kwargs):
         if self._logger.isEnabledFor(logging.CRITICAL):
             self._log_with_category(logging.CRITICAL, message, None, *args, **kwargs)

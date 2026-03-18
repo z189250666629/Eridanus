@@ -33,6 +33,7 @@ class OpenAIAPI:
         self.client = AsyncOpenAI(
             api_key=apikey,
             base_url=baseurl,
+            default_headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
             http_client=httpx.AsyncClient(proxies=proxies, timeout=60.0) if proxies else None
         )
 
@@ -144,7 +145,7 @@ class OpenAIAPI:
             tool_call_id = tool_call_id or f"call_{uuid.uuid4()}"
             
             try:
-                args = json.loads(arguments)
+                args = json.loads(arguments) if arguments else {}
                 func = tools.get(name)
                 
                 if not func:
@@ -180,6 +181,8 @@ class OpenAIAPI:
         """将内部消息格式转换为 OpenAI API 格式，并自动修正 role=model → assistant。"""
         api_messages = []
         for msg in messages:
+            if msg is None:
+                continue
             role = msg["role"]
             # ── 快速修正：Gemini 风格的 model role ──
             if role == "model":
@@ -210,6 +213,10 @@ class OpenAIAPI:
                         api_content.append(part)
             else:
                 raise ValueError(f"无效的消息内容格式: {content}")
+
+            # 纯文本消息使用字符串格式，提高中转站兼容性
+            if isinstance(api_content, list) and len(api_content) == 1 and api_content[0].get("type") == "text":
+                api_content = api_content[0]["text"]
 
             api_msg = {"role": role, "content": api_content}
             if "tool_calls" in msg:

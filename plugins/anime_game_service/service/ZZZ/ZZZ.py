@@ -14,7 +14,9 @@ from plugins.anime_game_service.service.ZZZ.core import *
 
 from core.config.manager import YAMLManager
 try:config = YAMLManager.get_instance()
-except Exception as e:config = YAMLManager("run")
+except Exception as e:
+    from core.config.constants import PLUGINS_DIR, CORE_CONFIG_DIR
+    config = YAMLManager(PLUGINS_DIR, CORE_CONFIG_DIR)
 db=asyncio.run(AsyncSQLiteDatabase.get_instance())
 from pathlib import Path
 module_path: Path = Path(__file__).parent / 'core'

@@ -144,7 +144,7 @@ class OpenAIAPI:
             tool_call_id = tool_call_id or f"call_{uuid.uuid4()}"
             
             try:
-                args = json.loads(arguments)
+                args = json.loads(arguments) if arguments else {}
                 func = tools.get(name)
                 
                 if not func:
