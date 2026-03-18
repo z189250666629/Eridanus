@@ -1,0 +1,4 @@
+# OneBot adapter transport dependencies used by adapters/onebot/*
+websockets
+fastapi
+uvicorn

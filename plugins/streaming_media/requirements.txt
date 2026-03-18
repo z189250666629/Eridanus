@@ -1,0 +1,6 @@
+# Plugin-local dependencies for streaming_media.
+pytubefix
+beautifulsoup4
+bilibili-api-python
+playwright
+pycairo

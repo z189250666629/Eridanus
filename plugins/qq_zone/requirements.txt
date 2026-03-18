@@ -1,0 +1,4 @@
+# Plugin-local dependencies for qq_zone.
+qzone_api
+pyzbar
+aiohttp

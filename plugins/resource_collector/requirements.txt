@@ -1,0 +1,5 @@
+# Plugin-local dependencies for resource_collector.
+jmcomic
+img2pdf
+beautifulsoup4
+pytubefix

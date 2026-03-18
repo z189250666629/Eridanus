@@ -1,0 +1,4 @@
+# Plugin-local dependencies for ai_voice.
+pydub
+audioop-lts
+websockets

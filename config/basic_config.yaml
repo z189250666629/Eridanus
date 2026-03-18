@@ -1,0 +1,42 @@
+
+user_handle_logic: blacklist #模式。可填 blacklist, whitelist。blacklist下，屏蔽指定用户，whitelist下，只处理指定用户。
+user_handle_logic_operate_level: 1000 #拉黑、解黑用户所需操作权限
+group_handle_logic: blacklist #模式。可填 blacklist, whitelist。blacklist下，屏蔽指定群，whitelist下，只处理指定群。
+group_handle_logic_operate_level: 1000 #拉黑、解黑群所需操作权限
+邀请bot加群所需权限: 0
+申请bot好友所需权限: 0
+
+webui:
+  enable: true #是否开启web ui
+record_mface: true #是否收集主人的表情包
+proxy:
+  http_proxy: ""
+  socks_proxy: ""
+bot: "Eridanus"   #机器人昵称
+master:
+  name: "管理员"
+  id: 1840094972
+group: 879886836   #测试群号1，随便建个小群。bot会往里面发乱七八糟的东西，不要填用户群。
+adapter:
+  name: "any"   #兼容性选项，如果用Lagrange，则必须填Lagrange，用其他onebot实现则不用动
+  use_new_core_bot: false   #是否启用 Eridanus 的 Bot + NapCatAdapter 运行时（当前仅支持单Bot、非Lagrange路径）
+  ws_client:   #机器人作为websocket客户端
+    ws_link: "ws://127.0.0.1:3001"  #bot的websocket请求地址
+
+PluginLoadConfig: #插件加载配置，根据配置情况调整。会影响插件加载速度。
+  load_strategy: "batch_loading" #加载策略，可选batch_loading，all_at_once，memory_aware
+  batch_size: 4  # 每批加载的插件数量
+  batch_delay: 2  # 批次间延迟（秒）
+  max_retries: 3  # 最大重试次数
+  retry_delay: 1  # 重试延迟（秒）
+  memory_threshold_mb: 200  # 内存阈值（MB）
+  enable_gc_between_batches: True  # 批次间是否强制垃圾回收
+HandlerMonitor:   #消息处理器超时检测
+  enable: false
+  handler_timeout_warning: 15  # 处理超时警告（秒）
+redis: #redis数据库相关设置，如果您不清楚请不要乱动
+  redis_ip: default       #默认即为本机ip，若您使用docker安装，请填您的docker网桥
+  redis_port: default
+  redis_db: default
+
+

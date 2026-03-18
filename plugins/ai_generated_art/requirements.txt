@@ -1,0 +1,2 @@
+# Plugin-local dependencies for ai_generated_art.
+beautifulsoup4

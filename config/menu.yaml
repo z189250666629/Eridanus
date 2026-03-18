@@ -1,0 +1,295 @@
+help_menu: #如果打开菜单编辑器发现内容为空，请先运行一遍/remenu！！！
+  send_as_node: true
+  send_text: "项目文档：https://eridanus.netlify.app/\n项目地址：https://github.com/AOrbitron/Eridanus"      #跟随菜单附带的文字
+
+  content:
+    page1: #https://q1.qlogo.cn/g?b=qq&nk=3552663628&s=640这里面可以换成你自己botqq
+      - { 'type': 'basic_set', 'img_width': 1000,'img_name_save': 'help_menu_page1.png','img_height': 1500,'max_num_of_columns': 3 ,'font_common_size': 34,'font_des_size': 25, 'font_title_size': 46,'spacing': 3,'padding_up': 30}
+      - { 'type': 'avatar', 'img': ["https://q1.qlogo.cn/g?b=qq&nk=3552663628&s=640"],'content': ["[name]Eridanus[/name]\n[des]很高兴认识你～[/des]"],'padding_up_font': 5,'upshift_extra':20 }
+      - '你好，我是一个基于 [title]Eridanus[/title] 的qq机器人，请多关照!\n请修改config/menu.yaml文件来自定义菜单内容哦！,修改后使用/remenu命令即可重新生成菜单'
+      #- {'type': 'text','content': ['  现在（敲黑板）！枫与岚也有属于自己的人物形象啦，大家请看！'],'layer':2}
+      #- { 'type': 'img', 'subtype': 'common_with_des','layer':2, 'img': ['https://gal.manshuo.ink/usr/uploads/2025/07/977611811.png','https://gal.manshuo.ink/usr/uploads/2025/07/2873643637.png','https://gal.manshuo.ink/usr/uploads/2025/07/4007464159.png'],'content': ["感谢’邪恶饼干‘的绘制","感谢’欢乐阳光‘的绘制","感谢’枫糖松饼’的绘制‘"] }
+      #- {'type': 'text','content': ['好耶，这下枫与岚也是变得越来越可爱了呢（嗯！\n那么接下来，就让我们介绍枫与岚的奇妙能力吧！'],'layer':2}
+      - { 'type': 'img', 'subtype': 'common_with_des_right','img': [ "https://q1.qlogo.cn/g?b=qq&nk=1270858640&s=640" ],'label': [ 'B站' ],'content': [ ' \n绘图框架作者\n                 ---漫朔\n \n[des]关注漫朔谢谢喵喵[/des]' ] }
+      - '   '
+      - {'type': 'text','content': ['[title]AI对话[/title]
+      \n  @触发/前缀触发/智能判断
+      \n  /clear
+      \n  /clear@某人   [des]管理员神权(bushi[/des]
+      \n  /clearall
+      \n  /clear group  [des]清除指定群聊的聊天记录[/des]
+      \n  /群总结  [des]发送当前群内消息总结，可通过/clear group清空[/des]
+      \n  /群总结 刷新  [des]调用ai立刻对群消息进行总结(llm相关配置中有多少条消息总结一次的配置)[/des]
+      \n  /查人设    [des]返回所有可用人设[/des]
+      \n  /切人设 {角色文件名} [des]/切人设 派蒙.txt[/des]
+      \n  /全切人设 {角色文件名}  [des]/全切人设 派蒙.txt  管理员命令[/des]
+      \n  可通过llm函数调用的方式使用bot的绝大多数功能，需bot管理员自行配置支持函数调用的模型。'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]语音合成[/title]
+      \n  /xx说xxxx [des]/派蒙说该死的旅行者[/des]
+      \n  可用角色  [des]列出所有可用的角色[/des]
+      \n  [des]语音合成自动同ai对话功能联动，请自行选择默认模型[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]用户和群管理[/title]
+      \n  我的信息  [des]check your personal information[/des]
+      \n  签到
+      \n  修改城市{城市名}  [des]修改城市南阳[/des]
+      \n  授权#{qq号}#{权限级别}  [des]授权#2319804644#10[/des]
+      \n  notice          [des]向所有群发送公告[/des]
+      \n  /quit < 10      [des]退出所有人数小于10的群[/des]
+      \n  /quit > 10      [des]退出所有人数大于10的群[/des]
+      \n  退群{群号}      [des]退群674822468[/des]
+      \n  [des]功能支持函数调用[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]黑名单与白名单[/title]
+      \n  [des]bot有黑名单模式和白名单模式，请管理员自行选择[/des]
+      \n  /bl add qq号       [des]把用户加进黑名单[/des]
+      \n  /bl remove qq号
+      \n  /wl add qq号      [des]把用户加进白名单[/des]
+      \n  /wl remove qq号
+      \n  /blgroup add 群号   [des]把群加进黑名单[/des]
+      \n  /blgroup remove 群号
+      \n  /wlgroup add 群号   [des]把群加进白名单[/des]
+      \n  /wlgroup remove 群号
+      \n  [des]功能支持函数调用[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]链接解析[/title]
+      \n  多平台链接解析，bilibili/小红书/抖音/微博/youtube(需参照文档登录)等平台解析，可下载视频，自动检测链接并触发。
+      \n  [des]功能支持函数调用，可通过ai对话触发[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]b站动态订阅[/title]
+      \n  /bili add {uid}  [des]不用带{}[/des]  
+      \n  /bili remove {uid}  [des]不用带{}[/des]
+      \n  今日热门
+      \n  [des]功能支持函数调用，可通过ai对话触发[/des]'],'layer':2}
+      - '   '
+    page2:
+      - { 'type': 'basic_set', 'img_width': 1000,'img_name_save': 'help_menu_page2.png','img_height': 1500,'max_num_of_columns': 3 ,'font_common_size': 34,'font_des_size': 25, 'font_title_size': 46,'spacing': 3,'padding_up': 30}
+      #- { 'type': 'img', 'subtype': 'common_with_des','layer':2, 'img': ['data/pictures/doc/e915959c1be7cec95c106aae81d9ef0e_720.png','https://gal.manshuo.ink/usr/uploads/2025/07/2873643637.png','https://gal.manshuo.ink/usr/uploads/2025/07/4007464159.png'],'content': ["感谢’邪恶饼干‘的绘制","感谢’欢乐阳光‘的绘制","感谢’枫糖松饼’的绘制‘"] }
+      - {'type': 'text','content': ['[title]ai绘画[/title]
+      \n  [des]矛与盾[/des]
+      \n  画 xxxxx       [des]画 an anime girl。 你可以在prompt中任意位置添加“方”/“横”/“竖”等参数来调整画布。[/des]
+      \n  n4 xxxx
+      \n  n3 xxx         [des]novel ai绘画[/des]
+      \n  tag xxxx       [des]随后发送图片，反推出标签。[/des]
+      \n  dan {你要查的tag，可以是各种语言} [des]查询danbooru标签[/des]
+      \n  重绘 xxxxx      [des]随后发送图片[/des]
+      \n  n3re xxxxxx/n4re xxxxxx    [des]novel ai重绘[/des]
+      \n  局部重绘 xxxxx   [des]局部重绘[/des]
+      \n  imginfo        [des]查看图片信息[/des]
+      \n  setsd xxxx   [des]设置sd参数(比如setsd --w 1024 --h 1600就会把宽设为1024，高设为1600)（注意空格和"--"）[/des]
+      \n  setre xxxx   [des]设置重绘参数:--w(宽，值要求为整数) --h(高，值要求为整数) --d(重绘幅度，0到1之间的小数) --p(正向提示词) --n(负面提示词)[/des]
+      \n  setsd 0或setre 0可以回到默认设置
+      \n  /clearre      [des]中断重绘[/des]
+      \n  interrupt     [des]中断当前任务[/des]
+      \n  /skip         [des]把当前任务的结果直接发出来[/des]
+      \n  lora/ckpt/scheduler/sampler  [des]查看模型信息，单独发送命令[/des]
+      \n  ckpt2 {modelname}  [des]切换模型[/des]
+      \n  [des]功能支持函数调用。其他功能，如r18审核等，请自行查阅文档[/des]
+      \n  文档中有如何长期免费云部署sd服务端的教程，如有需要请自行查阅。'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]ai图片检测[/title]
+      \n  ai图检测  [des]然后发送图片[/des]
+      \n  ai图检测[图片] [des]在发送时带上图片[/des]
+      \n  [des]功能支持函数调用，可在对话中要求bot检查聊天记录中的图片[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]zlibrary[/title]
+      \n  搜书{书名/作者名}    [des]搜书唐士其[/des]
+      \n  下载书{book_id} {hash}     [des]上一步查询会返回书籍id和hash。比如下载书11964391 06f948[/des]
+      \n  [des]功能支持函数调用，可通过ai对话触发[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]asmr.100[/title]
+      \n  随机奥术
+      \n  随机asmr
+      \n  最新asmr
+      \n  热门asmr
+      \n  下载指定asmr [des]@bot 帮我下载https://asmr.one/work/RJ01275524[/des]
+      \n  [des]功能支持函数调用，可通过ai对话触发[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]JMComic[/title]
+      \n  验车350234
+      \n  JM下载350234
+      \n  随机本子
+      \n  jm搜{关键字}
+      \n  [des]功能支持函数调用，可通过ai对话触发[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]iwara[/title]
+      \n  iwara搜{关键字}   #比如 iwara搜菲比
+      \n  iwara下载{视频id}  #比如 iwara下载ciGDn8TIwYvfgR
+      \n  iwara最新
+      \n  iwara热门
+      \n  iwara趋势
+      \n  [des]功能支持函数调用，可通过ai对话触发。bot管理员可选以压缩包(是否加密)的形式输出，降低被封几率。[/des]'],'layer':2}
+      - '   '
+      #- {'type': 'text','content': ['· 多平台链接解析\n（BiliBili、抖音、小红书、微博、推特等）\n· BiliBili动态实时推送\n· PetPet绘图（咕咕咕）\n· 奶龙/doro检测\n· arcaea online\n（暂不维护（强制要求拥有arcaea online）\n· 黑/白名单、权限系统\n(目前有身份：管理员、信任者、贡献者、用户)\n（授权指令：授权 + 身份）\n· 敬请期待（欢迎催更，咕咕咕！'],'layer':2}
+      #- {'type': 'text','content': ['[title]限制级の功能菜单[/title]\n[des]注意：本功能模块均为限制级，请群友谨慎使用，部分功能未获得对应授权不予开放，请进入bot群（674822468）请求 MASTER 授权[/des]'],'layer':2}
+      #- {'type': 'text','content': ['随机asmr（R18）\n· JMComic 系列（验车 + id、JM下载 + id、随机本子等）\n· iwara热门（包括搜索特定视频与下载功能）'],'layer':2}
+      #- '   '
+      #- {'type': 'text','content': ['[title]小功能の菜单[/title]\n· 今日老婆/群主/群友/塔罗/老公/萝莉等\n· 🦌（这是一种生活、一种签到方式）\n· /透/娶群友系列\n· 点歌功能 （点歌 周杰伦 屋顶）\n· z_lib搜书/下载\n· 搜图 + 图片\n· 内置ai绘图（暂不开放）'],'layer':2}
+    page3:
+      - { 'type': 'basic_set', 'img_width': 1000,'img_name_save': 'help_menu_page3.png','img_height': 1500,'max_num_of_columns': 3 ,'font_common_size': 34,'font_des_size': 25, 'font_title_size': 46,'spacing': 3,'padding_up': 30}
+      #- { 'type': 'img', 'subtype': 'common_with_des','layer':2, 'img': ['data/pictures/doc/e915959c1be7cec95c106aae81d9ef0e_720.png','https://gal.manshuo.ink/usr/uploads/2025/07/2873643637.png','https://gal.manshuo.ink/usr/uploads/2025/07/4007464159.png'],'content': ["感谢’邪恶饼干‘的绘制","感谢’欢乐阳光‘的绘制","感谢’枫糖松饼’的绘制‘"] }
+      - {'type': 'text','content': ['[title]bangumi查询[/title]
+      \n  [des]四斋这一块[/des]
+      \n  新番排行/新番top/本月新番/番剧排行/动画排行 [des]可根据指定年月查询，如：2024年3月番剧排行[/des]
+      \n  /bangumi查询{目标}    [des]用的时候不用带{}[/des]
+      \n  /查询动画{目标}
+      \n  /查询书籍{目标}
+      \n  /查询游戏{目标}
+      \n  /查询音乐{目标}
+      \n  /查询三次元{目标}
+      \n  [des]功能支持函数调用。@bot 搜游戏无限暖暖。@bot 查一查漫画再见绘梨 [/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]steam查询[/title]
+      \n  steam查询 星际拓荒
+      \n  [des]其他功能后续完善[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]雀魂助手[/title]
+      \n  雀魂注册 用户名 [des]雀魂注册 445[/des]
+      \n  雀魂个人信息
+      \n  雀魂记录
+      \n  雀魂信息
+      \n  雀魂四麻查询
+      \n  雀魂三麻查询
+      \n  雀魂四麻记录
+      \n  雀魂三麻记录
+      \n  [des]其他功能后续完善[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]碧蓝档案助手[/title]
+      \n  /arona
+      \n  /攻略    [des]列出所有可查询目标[/des]
+      \n  /攻略 目标名
+      \n  /订阅日服
+      \n  /订阅国际服
+      \n  /订阅国服'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]角色检测[/title]
+      \n 奶龙、doro、男娘表情包检测。bot管理员需要使用 `python Eridanus/install.py --plugin character_detection` 额外安装所需环境
+      \n  /开启奶龙审核 群号
+      \n  /关闭奶龙审核 群号
+      \n  /开启doro审核 群号
+      \n  /关闭doro审核 群号
+      \n  功能支持函数调用。@bot 开启{群号}的奶龙审核'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]基础群管[/title]
+      \n 基于原版qq的群管，能做的东西很多，但主要是懒得做。
+      \n  设精
+      \n  加群/退群自动提醒
+      \n  [des]功能后续完善 [/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]定时任务[/title]
+      \n  向指定群/用户定时发送消息。如每天早上播报天气等。
+      \n  可用任务名 每日天文, bing每日图像, 单向历, bangumi, nightASMR, 摸鱼人日历, 新闻, 免费游戏喜加一, 早安, 晚安, 午安, 忍术大学习, 每日壁画王
+      \n  /cron add 任务名
+      \n  /cron remove 任务名
+      \n  [des]时间等相关配置，请参考配置文件。 [/des]'],'layer':2}
+      - '   '
+    page4:
+      - { 'type': 'basic_set', 'img_width': 1000,'img_name_save': 'help_menu_page4.png','img_height': 1500,'max_num_of_columns': 3 ,'font_common_size': 34,'font_des_size': 25, 'font_title_size': 46,'spacing': 3,'padding_up': 30}
+      #- { 'type': 'img', 'subtype': 'common_with_des','layer':2, 'img': ['data/pictures/doc/e915959c1be7cec95c106aae81d9ef0e_720.png','https://gal.manshuo.ink/usr/uploads/2025/07/2873643637.png','https://gal.manshuo.ink/usr/uploads/2025/07/4007464159.png'],'content': ["感谢’邪恶饼干‘的绘制","感谢’欢乐阳光‘的绘制","感谢’枫糖松饼’的绘制‘"] }
+      - {'type': 'text','content': ['[title]蕾忍宗[/title]
+      \n  随机忍术   [des]功能支持函数调用,可通过ai对话触发。[/des]
+      \n  查询忍术{忍术名} [des]如 查询忍术握握手[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]emoji合成[/title]
+      \n  合成两个emoji'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]五子棋[/title]
+      \n  创建棋局 7x8 5 3 [des]创建一个7行8列的棋盘，5连子获胜，3人[/des]
+      \n  加入棋局 1 [des]代表加入指定的棋局[/des]
+      \n  棋局信息  [des]查看所有棋局[/des]
+      \n  删除棋局  [des]创建者删除自己创建的棋局[/des]
+      \n  落子 3,4  [des]代表在3行4列处落子[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]决斗[/title]
+      \n  决斗规则  [des]bot会发送给你二级目录[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]轮盘赌[/title]
+      \n  轮盘赌   [des]bot会发送给你二级目录[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]发言排行[/title]
+      \n  今日/昨日/每日发言排行/发言次数/bb次数/bb排行
+      \n  本月/上月发言排行/发言次数/bb次数/bb排行  [des]壁画王[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]乱七八糟的小功能[/title]
+      \n  查天气郑州 [des]查询郑州的天气。@bot 看看郑州的天气 也可以[/des]
+      \n  /setu {数量} {tag1} {tag2} #比如 /setu 3 白丝 萝莉
+      \n  识别 [des]角色识别。先发识别然后发送图片，一起发也行[/des]
+      \n  今日腿子/白丝/黑丝
+      \n  点歌 周杰伦 屋顶 [des]点歌功能[/des]
+      \n  搜图
+      \n  今日塔罗
+      \n  运势
+      '],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]娶群u[/title]
+      \n  今日老婆
+      \n  今日老公
+      \n  /透群主
+      \n  /透管理
+      \n  /透群友
+      \n  /娶群友
+      \n  /离婚
+      \n  今日/本周/本月/年度色色记录'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]🦌[/title]
+      \n  🦌
+      \n  戒🦌
+      \n  开启/关闭贞操锁 [des]以免有的人被打扰[/des]
+      \n  🦌+艾特    
+      \n  补🦌    [des]每3天可以补🦌一次[/des]
+      \n  🦌排行    [des]每月,本月,当月/年度/全部[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]steam状态[/title]
+      \n 视奸群友玩游戏
+      \n steamhelp    [des]将发送二级菜单。视奸群友玩游戏[/des]
+      '],'layer':2}
+      - '   '
+      - { 'type': 'text','content': [ '[title]森空岛功能[/title]
+      \n 森空岛帮助    [des]将发送二级菜单。[/des]
+      ' ],'layer': 2 }
+    page5:
+      - { 'type': 'basic_set', 'img_width': 1000,'img_name_save': 'help_menu_page5.png','img_height': 1500,'max_num_of_columns': 3 ,'font_common_size': 34,'font_des_size': 25, 'font_title_size': 46,'spacing': 3,'padding_up': 30}
+      - {'type': 'text','content': ['[title]ai写插件[/title]
+      \n  /写插件{具体需求}  [des]实验性功能，不保证稳定性和可用性[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]图片风格化[/title]
+      \n  将图片转化为指定风格，默认像素风
+      \n  style  [des]可引用图片[/des]
+      \n  style {风格}   [des]可选"像素风格","抽象风格","韩系淡彩风格","清新日漫风格","纯真动漫风格"[/des]
+      \n  示例：style 像素风格    [des]随后发送图片[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]词库功能[/title]
+      \n  半成品，不保证可用性
+      \n  开始添加   [des]默认只在本群生效[/des]
+      \n  *开始添加   [des]在所有群生效[/des]
+      \n  删除关键词 关键字    [des]删除关键字所有回复[/des]
+      \n  *删除关键词 关键字    [des]全局词库删除关键字所有回复[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]神表情包[/title]
+      \n  神@某人
+      \n  神 {QQ号}'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]火影奥义图[/title]
+      \n  /aoyi 文本 【图片】 [des]引用一张图片[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]伪造聊天记录[/title]
+      \n  伪造消息 QQ号 内容
+      \n  伪造帮助  [des]查看帮助信息[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]消息记录[/title]
+      \n  消息记录  [des]记录某一群u的怪话[/des]
+      \n  今日语录  [des]查看今日语录，可艾特指定用户[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]防自言自语插件[/title]
+      \n  被动技能，自动触发    [des]在配置文件中编辑[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]qq空间[/title]
+      \n  [des]此功能尚在开发中[/des]
+      \n  /qzone login  [des]登录[/des]
+      \n  /发空间      [des]然后发送图文混合消息[/des]
+      \n  早晚自动发空间，可接入sd
+      \n  [des]此功能尚在开发中，回复空间动态、cookie保活等均未完成。[/des]'],'layer':2}
+      - '   '
+      - {'type': 'text','content': ['[title]绝区零插件[/title]
+      \n  绝区零功能尚在开发中，敬请期待。'],'layer':2}

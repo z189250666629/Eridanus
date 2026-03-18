@@ -1,0 +1,3 @@
+# Plugin-local dependencies for group_fun.
+python-dateutil
+aiohttp

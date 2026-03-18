@@ -1,0 +1,17 @@
+-r base.txt
+-r web.txt
+-r adapter-onebot.txt
+-r legacy-compat.txt
+-r ../plugins/Grok2api/requirements.txt
+-r ../plugins/acg_infromation/requirements.txt
+-r ../plugins/ai_generated_art/requirements.txt
+-r ../plugins/ai_llm/requirements.txt
+-r ../plugins/ai_voice/requirements.txt
+-r ../plugins/anime_game_service/requirements.txt
+-r ../plugins/auto_reply/requirements.txt
+-r ../plugins/basic_plugin/requirements.txt
+-r ../plugins/comfyui_api/requirements.txt
+-r ../plugins/group_fun/requirements.txt
+-r ../plugins/qq_zone/requirements.txt
+-r ../plugins/resource_collector/requirements.txt
+-r ../plugins/streaming_media/requirements.txt

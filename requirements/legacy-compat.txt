@@ -1,0 +1,5 @@
+# Legacy compatibility holdovers kept from Eridanus/requirements.txt.
+# These packages remain in the aggregate install until their exact ownership is
+# either reassigned to a concrete boundary or removed after verification.
+jieba
+imageio

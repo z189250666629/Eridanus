@@ -1,0 +1,63 @@
+
+sightengine:       #ai创作图片鉴别，自己去申请https://dashboard.sightengine.com/api-credentials
+  api_user: ''
+  api_secret: ''
+
+ai绘画:
+  sdUrl: # 你自己搭建的sd，地址，示例http://127.0.0.1:17858（示例≠你能直接填示例用），免费云部署见文档，本地部署https://www.bilibili.com/video/BV1iM4y1y7oA/
+    - ''
+  sd审核和反推api: '' # 如果你的sd有反推插件https://github.com/spawner1145/stable-diffusion-webui-wd14-tagger.git，可以直接使用你的sdurl的api，也可以部署https://github.com/spawner1145/wd14-inference-webui.git并使用这个启动的网址作为api
+  nai_key:
+    - ''
+  sd画图: true
+  sd默认启动模型: 'miaomiao_1_4.safetensors'
+  反推和审核使用模型: 'wd14-vit-v2-git' # 可填的选项见文档https://eridanus-doc.netlify.app/configuration/ai%E7%BB%98%E7%94%BB/ai%E7%BB%98%E7%94%BB.html#%E5%8F%8D%E6%8E%A8%E4%B8%8E%E5%AE%A1%E6%A0%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E7%9B%B8%E5%85%B3
+  sd图片是否保存到生图端: true   #是否将生成的图片保存在webui的outputs里
+  novel_ai画图: false
+  sd画图默认分辨率: '1024,1536' # 宽,高（别带空格）
+  sd最大分辨率: '1600,1600'
+  sd队列长度限制: 6     #防止有人刷绘图指令。
+  ai绘画所需权限等级: 0 # sd绘图权限
+  内置ai绘画1开关: true  #聚合接口
+  内置ai绘画2开关: true  #NoobXL-V-pred-v1.0，来自modelscope。
+  内置ai绘画1所需权限等级: 0  #默认聚合绘图功能所需等级
+  内置ai绘画2所需权限等级: 0  #NoobXL-V-pred-v1.0
+
+  qwen_image_cookie: "" #在https://www.modelscope.cn/aigc/imageGeneration?tab=advanced&versionId=275167&modelType=Checkpoint&sdVersion=QWEN_IMAGE_20_B&modelUrl=modelscope%3A%2F%2FMusePublic%2FQwen-image%3Frevision%3Dv1这里跑一次图f12自己拿cookie
+
+  nano_banana_key: # 就是冲了米的gemini key
+  -  ""   #可继续添加更多apikey
+  nano_banana_config:
+    model: gemini-3-pro-image-preview  #用第三方接口的自己翻第三方文档去，不接代看文档谢谢
+    base_url: "https://generativelanguage.googleapis.com"          #留空则使用ai_llm中的gemini反代(这边只影响gemini格式)
+    原生gemini接口: false  #如果用gemini官方apikey，则打开此项，使用openrouter或其他openai标准的中转api则无需打开。
+    quest_url: "http://fku.com/v1/chat/completions" #第三方中转，完整调用地址，gemini官方key不用管
+    nano_banana不限制次数所需权限: 1  #超过此权限不受次数限制
+    nano_banana默认权限用户可用次数: 10  #默认用户可用次数
+    temperature: 1
+
+  禁止nsfw: false
+  allow_nsfw_groups:               #允许色图的群号，禁止nsfw开启时有效
+  - 123
+  其他默认绘图参数: # 各参数见文档https://eridanus-doc.netlify.app/configuration/ai%E7%BB%98%E7%94%BB/ai%E7%BB%98%E7%94%BB.html#%E5%8F%8D%E6%8E%A8%E4%B8%8E%E5%AE%A1%E6%A0%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E7%9B%B8%E5%85%B3
+    - --d 0.7
+    - --p {},rating:general, best quality, very aesthetic, absurdres
+    - --n blurry, lowres, error, film grain, scan artifacts, worst quality, bad quality, jpeg artifacts, very displeasing, chromatic aberration, logo, dated, signature, multiple views, gigantic breasts
+    - --steps 28
+    - --sampler Euler a
+    - --scheduler Automatic
+    - --nai-sampler k_euler_ancestral
+    - --nai-scheduler karras
+    - --cfg 4.5
+    - --nai-cfg 5
+    - --ns 5
+    - --nf 20
+    - --overmask 64
+
+suno:
+  # Suno API的Cookie, 需要从浏览器登录Suno官网后，通过开发者工具获取
+  cookie: ""
+  # 权限等级或以上的用户可以无限次使用Suno功能
+  unlimited_permission: 5
+  # 普通用户设置的每日默认使用次数
+  default_user_uses: 3

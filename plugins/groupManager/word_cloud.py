@@ -1,0 +1,27 @@
+import asyncio
+from datetime import datetime
+
+from core.event.events import GroupMessageEvent
+from core.database.group import add_to_group
+
+
+def main(bot,config):
+    message = {"user_name": "test", "user_id": 000000, "message": [{"text": "test"}]}
+    asyncio.run(add_to_group(000000, message))
+    @bot.on(GroupMessageEvent)
+    async def add_message_to_db(event: GroupMessageEvent):
+        if not config.ai_llm.config["llm"].get("读取群聊上下文", False):
+            return
+        try:
+            user_name=event.sender.nickname
+        except:
+            user_name=event.user_id
+        try:
+
+            message={"user_name":user_name,"user_id":event.user_id,"message":event.processed_message}
+
+            await add_to_group(event.group_id,message)
+        except Exception as e:
+            bot.logger.error(f"group_mes database error {e}")
+            
+

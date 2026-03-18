@@ -1,0 +1,31 @@
+from core.toolkit.logger import get_logger
+from core.toolkit.random_utils import random_str
+from plugins.ai_generated_art.service.aiDraw import SdDraw0
+from plugins.ai_generated_art.service.wildcard import replace_wildcards
+
+logger = get_logger("simple_text2img")
+
+
+async def simple_call_text2img1( config, tag):
+
+    if config.ai_generated_art.config["ai绘画"]["sd画图"] and config.ai_generated_art.config["ai绘画"][
+        "sdUrl"] != "" and config.ai_generated_art.config["ai绘画"]["sdUrl"] != '':
+        global turn
+
+        tag, log = await replace_wildcards(tag)
+
+        path = f"data/pictures/cache/{random_str()}.png"
+        logger.info(f"开始调用sd api。{tag}")
+        try:
+
+            args = {}
+
+            p = await SdDraw0(tag, path, config, 114514, args)
+
+            return p
+
+        except Exception as e:
+            logger.error(e)
+            logger.error(f"sd api调用失败。{e}")
+
+

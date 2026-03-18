@@ -1,0 +1,20 @@
+# Core runtime dependencies shared by Eridanus/main.py, core/* and common toolkit paths.
+pydantic
+pydantic-settings
+pydantic_core
+colorlog
+tenacity
+ruamel.yaml
+requests
+httpx<0.28.0
+aiosqlite
+pillow
+numpy
+aiofiles
+apscheduler
+redis
+psutil
+pyzipper
+cloudscraper
+watchdog
+pypdf

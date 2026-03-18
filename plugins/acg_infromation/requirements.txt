@@ -1,0 +1,3 @@
+# Plugin-local dependencies for acg_infromation.
+beautifulsoup4
+bilibili-api-python

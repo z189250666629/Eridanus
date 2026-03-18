@@ -1,0 +1,2 @@
+# Plugin-local dependencies for comfyui_api.
+websockets

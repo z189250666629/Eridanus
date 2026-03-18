@@ -1,0 +1,5 @@
+# Plugin-local dependencies for anime_game_service.
+beautifulsoup4
+fuzzywuzzy
+python-Levenshtein
+pytz

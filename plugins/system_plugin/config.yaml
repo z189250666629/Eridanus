@@ -1,0 +1,27 @@
+api_implements: #花里胡哨
+  nudge:                #戳一戳设置。
+    counter_probability: 50  #反击概率
+    is_Reply_with_meme: True  #戳一戳是否返回一张表情包
+    Reply_with_meme_probability: 50  #戳一戳回复表情包概率
+    Reply_with_meme_method: local   #戳一戳获取表情包方式，若为‘url’则从网络获取，若为‘local’则为本地获取
+    Reply_with_meme_url:     #戳一戳从网络获取表情包链接
+      - 'http://localhost:5000/emoji'
+      - 'http://bangumi.manshuo.ink:8092/emoji'
+    Reply_with_meme_local: 'data/pictures/Mface'     #戳一戳本地获取表情包文件夹
+    replylist:        #如果开启aiReplyCore，将不使用此处配置回复
+    - 戳我干嘛呀！
+  send_like: 0     #“赞我”功能所需权限等级
+  send_like_message: '赞你了喵～'    #赞你后发送的消息
+  recall_level: 2  #撤回？
+user_data:
+  是否启用签到: True
+  是否启用个人信息查询: True
+  签到附带原图: true
+  with_taro: true     #签到是否附带塔罗图和运势
+  with_img_backdrop: true   #签到是否使用图片作为背景
+  auto_register: true  #自动为发送消息的用户注册。确保所有人都在数据库中，不建议关。
+  change_info_operate_level: 0     #相关指令所需操作权限等级。默认0级最低，数字越大等级越高
+  permit_user_operate_level: 1000    #允许使用授权#{目标QQ}#{level} 指令的操作权限等级
+
+draw_frame: #一个自行实现的绘图框架，在这里编写必要的配置
+  is_lightweight: False           #是否进行轻量化绘图，此举用于针对服务器运行能力有限的用户

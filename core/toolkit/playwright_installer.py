@@ -1,0 +1,46 @@
+"""Playwright bootstrap helper hosted under core.toolkit."""
+
+from __future__ import annotations
+
+import subprocess
+import sys
+import threading
+
+from .logger import get_logger
+
+logger = get_logger("PlaywrightAutoInstaller")
+
+
+def check_and_install_playwright():
+    """检查并自动安装 Playwright 浏览器。"""
+
+    def install_playwright():
+        try:
+            logger.info("检查Playwright Chromium安装状态...")
+            result = subprocess.run(
+                [sys.executable, "-m", "playwright", "install", "chromium"],
+                capture_output=True,
+                text=True,
+                timeout=300,
+            )
+            if result.returncode == 0:
+                logger.info("Playwright Chromium已在本设备安装完成")
+            else:
+                logger.warning(f"Playwright安装可能失败: {result.stderr}")
+        except subprocess.TimeoutExpired:
+            logger.warning("Playwright安装超时")
+        except Exception as e:
+            logger.error(f"安装Playwright时出错: {e}")
+
+    try:
+        subprocess.run(
+            [sys.executable, "-m", "playwright", "--help"],
+            capture_output=True,
+            timeout=5,
+        )
+        threading.Thread(target=install_playwright, daemon=True).start()
+    except Exception:
+        logger.warning("Playwright未正确安装，请手动运行: playwright install chromium")
+
+
+__all__ = ["check_and_install_playwright"]

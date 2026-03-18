@@ -1,0 +1,1 @@
+"""Cloud music service package."""

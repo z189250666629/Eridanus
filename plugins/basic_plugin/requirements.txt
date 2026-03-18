@@ -1,0 +1,5 @@
+# Plugin-local dependencies for basic_plugin.
+beautifulsoup4
+xpinyin
+playwright
+aiohttp

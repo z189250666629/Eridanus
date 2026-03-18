@@ -1,0 +1,5 @@
+# WebUI-only dependencies used by Eridanus/web/*
+flask
+flask-sock
+flask-cors
+cryptography

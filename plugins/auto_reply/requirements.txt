@@ -1,0 +1,3 @@
+# Plugin-local dependencies for auto_reply.
+fuzzywuzzy
+python-Levenshtein
