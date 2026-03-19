@@ -33,7 +33,7 @@ from core.bot.bot_info import bot_info_collect
 from core.bot.dual_bot_manager import DualBotManager
 from core.bot.extend_bot import ExtendBot
 from core.bot.func_map_loader import scan_plugins
-from core.bot.legacy_plugin_manager import LoadStrategy, PluginLoadConfig, PluginManager
+from core.bot.plugin_manager import LoadStrategy, PluginLoadConfig, PluginManager
 from core.config import CORE_CONFIG_DIR, PLUGINS_DIR, PLUGINS_MODULE_PREFIX, YAMLManager
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent, PrivateMessageEvent
 from core.toolkit.logger import get_logger
@@ -173,14 +173,16 @@ class StandaloneRuntime:
     async def load_plugins(self) -> PluginManager | None:
         self.bot1.logger.info("🔧 正在使用插件管理器加载插件....")
 
+        def _refresh_func_map() -> None:
+            scan_plugins(PLUGINS_DIR, PLUGINS_MODULE_PREFIX)
+
         try:
+            plugin_load_settings = self.config.common_config.basic_config["PluginLoadConfig"]
             load_strategy_dict = {
                 "batch_loading": LoadStrategy.BATCH_LOADING,
                 "all_at_once": LoadStrategy.ALL_AT_ONCE,
                 "memory_aware": LoadStrategy.MEMORY_AWARE,
             }
-
-            plugin_load_settings = self.config.common_config.basic_config["PluginLoadConfig"]
             load_config = PluginLoadConfig(
                 batch_size=plugin_load_settings["batch_size"],
                 batch_delay=plugin_load_settings["batch_delay"],
@@ -199,6 +201,7 @@ class StandaloneRuntime:
                 plugins_dir=PLUGINS_DIR,
                 plugins_module_prefix=PLUGINS_MODULE_PREFIX,
                 load_config=load_config,
+                on_plugin_reloaded=_refresh_func_map,
             )
 
             await self.plugin_manager.retry_failed_plugins()
@@ -219,6 +222,12 @@ class StandaloneRuntime:
         if event.pure_text == "/reload all":
             await self.reload_all_plugins()
             await bot.send(event, "插件重载完成")
+        elif event.pure_text.startswith("/reload "):
+            plugin_name = event.pure_text[len("/reload "):].strip()
+            if self.plugin_manager and plugin_name:
+                await self.plugin_manager.reload_plugin(plugin_name)
+                scan_plugins(PLUGINS_DIR, PLUGINS_MODULE_PREFIX)
+                await bot.send(event, f"插件 {plugin_name} 重载完成")
         elif event.pure_text in ["/status", "/info"]:
             status = await self.get_plugin_status()
             module = importlib.import_module(f"{PLUGINS_MODULE_PREFIX}.basic_plugin.service.self_condition")

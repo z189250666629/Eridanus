@@ -3,21 +3,80 @@
 from __future__ import annotations
 
 import asyncio
+import gc
 import importlib
 import inspect
 import sys
 import time
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Callable
 
-from core.config import PLUGINS_DIR, PLUGINS_MODULE_PREFIX
+from core.config import PLUGINS_DIR, PLUGINS_MODULE_PREFIX, PLUGIN_DIR_EXCLUDES
 from core.toolkit.logger import get_logger
 from core.services import get_service_registry
 from .skill_parser import parse_plugin_skill
 
+try:
+    import psutil
+except ImportError:
+    psutil = None
+
 if TYPE_CHECKING:
     from .skill_parser import SkillDocument
+
+
+class LoadStrategy(Enum):
+    ALL_AT_ONCE = "all_at_once"
+    BATCH_LOADING = "batch_loading"
+    MEMORY_AWARE = "memory_aware"
+
+
+@dataclass
+class PluginLoadConfig:
+    batch_size: int = 4
+    batch_delay: float = 2.0
+    max_retries: int = 3
+    retry_delay: float = 1.0
+    memory_threshold_mb: int = 200
+    enable_gc_between_batches: bool = True
+    load_strategy: LoadStrategy = LoadStrategy.BATCH_LOADING
+
+
+@dataclass
+class PluginLoadResult:
+    plugin_name: str
+    success: bool
+    error: str | None = None
+    retry_count: int = 0
+    load_time: float = 0.0
+    memory_used: float = 0.0
+
+
+class MemoryMonitor:
+
+    @staticmethod
+    def get_memory_usage() -> float:
+        if psutil is None:
+            return 0.0
+        try:
+            return psutil.Process().memory_info().rss / 1024 / 1024
+        except Exception:
+            return 0.0
+
+    @staticmethod
+    def get_available_memory() -> float:
+        if psutil is None:
+            return 1000.0
+        try:
+            return psutil.virtual_memory().available / 1024 / 1024
+        except Exception:
+            return 1000.0
+
+    @staticmethod
+    def is_memory_sufficient(threshold_mb: int = 200) -> bool:
+        return MemoryMonitor.get_available_memory() > threshold_mb
 
 
 @dataclass(slots=True)
@@ -91,6 +150,8 @@ class PluginManager:
         func_map: Any | None = None,
         enable_file_watcher: bool = True,
         reload_debounce_seconds: float = 0.5,
+        on_plugin_reloaded: Callable[[], None] | None = None,
+        load_config: PluginLoadConfig | None = None,
     ) -> None:
         self.bot = bot
         self.config = config
@@ -99,6 +160,8 @@ class PluginManager:
         self.func_map = func_map
         self.enable_file_watcher = enable_file_watcher
         self.reload_debounce_seconds = reload_debounce_seconds
+        self._on_plugin_reloaded = on_plugin_reloaded
+        self.load_config = load_config or PluginLoadConfig()
         self.logger = get_logger("CorePluginManager")
         self.loaded_plugins: dict[str, LoadedPlugin] = {}
         self.service_registry = get_service_registry()
@@ -106,24 +169,188 @@ class PluginManager:
         self._observer: Any | None = None
         self._plugin_mod_times: dict[str, float] = {}
         self._pending_sync_tasks: dict[str, asyncio.Task[None]] = {}
+        self.failed_plugins: dict[str, PluginLoadResult] = {}
+        self.memory_monitor = MemoryMonitor()
+        self.plugin_memory_usage: dict[str, dict] = {}
+        self.load_statistics: dict[str, Any] = {
+            "total_attempts": 0,
+            "successful_loads": 0,
+            "failed_loads": 0,
+            "retry_count": 0,
+        }
+        self._memory_monitor_task: asyncio.Task[None] | None = None
 
     async def start(self) -> None:
         self._event_loop = asyncio.get_running_loop()
+        self.logger.info(f"启动插件管理器 (策略: {self.load_config.load_strategy.value})")
+        initial_memory = self.memory_monitor.get_memory_usage()
+        self.logger.info(f"初始内存使用: {initial_memory:.2f} MB")
         await self.load_all_plugins()
         self.start_file_watcher()
+        self._start_memory_monitoring()
 
     async def stop(self) -> None:
+        self._stop_memory_monitoring()
         self.stop_file_watcher()
         for plugin_name in list(self.loaded_plugins.keys()):
             await self.unload_plugin(plugin_name)
 
     async def load_all_plugins(self) -> None:
+        plugin_names = self._discover_plugins()
+        if not plugin_names:
+            self.logger.info("未找到可加载的插件")
+            return
+
+        strategy = self.load_config.load_strategy
+        if strategy == LoadStrategy.BATCH_LOADING:
+            await self._batch_load_plugins(plugin_names)
+        elif strategy == LoadStrategy.MEMORY_AWARE:
+            await self._memory_aware_load_plugins(plugin_names)
+        else:
+            await self._load_all_at_once(plugin_names)
+
+        success_count = self.load_statistics["successful_loads"]
+        self.logger.info(f"插件加载完成: 成功 {success_count}/{len(plugin_names)}")
+
+    def _discover_plugins(self) -> list[str]:
+        names: list[str] = []
         for plugin_dir in sorted(self.plugins_dir.iterdir(), key=lambda item: item.name):
             if not plugin_dir.is_dir() or plugin_dir.name.startswith("."):
                 continue
+            if plugin_dir.name in PLUGIN_DIR_EXCLUDES:
+                continue
             if not (plugin_dir / "__init__.py").exists():
                 continue
-            await self.load_plugin(plugin_dir.name)
+            names.append(plugin_dir.name)
+        return names
+
+    async def _load_all_at_once(self, plugin_names: list[str]) -> None:
+        tasks = [self.load_plugin(name) for name in plugin_names]
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+    async def _batch_load_plugins(self, plugin_names: list[str]) -> None:
+        batch_size = self.load_config.batch_size
+        total_batches = (len(plugin_names) + batch_size - 1) // batch_size
+
+        for batch_idx in range(total_batches):
+            start = batch_idx * batch_size
+            batch = plugin_names[start:start + batch_size]
+            self.logger.info(f"加载批次 {batch_idx + 1}/{total_batches}: {batch}")
+
+            for name in batch:
+                await self.load_plugin(name)
+
+            if self.load_config.enable_gc_between_batches:
+                gc.collect()
+            if batch_idx < total_batches - 1:
+                await asyncio.sleep(self.load_config.batch_delay)
+
+    async def _memory_aware_load_plugins(self, plugin_names: list[str]) -> None:
+        for name in plugin_names:
+            if not self.memory_monitor.is_memory_sufficient(self.load_config.memory_threshold_mb):
+                self.logger.warning(f"内存不足 (阈值 {self.load_config.memory_threshold_mb}MB)，跳过插件 {name}")
+                self.failed_plugins[name] = PluginLoadResult(
+                    plugin_name=name, success=False, error="内存不足"
+                )
+                continue
+            await self.load_plugin(name)
+            gc.collect()
+
+    async def load_plugin_with_retry(self, plugin_name: str) -> PluginLoadResult:
+        start_time = time.time()
+        memory_before = self.memory_monitor.get_memory_usage()
+        last_error = ""
+
+        for attempt in range(self.load_config.max_retries + 1):
+            self.load_statistics["total_attempts"] += 1
+            try:
+                success = await self.load_plugin(plugin_name)
+                if success:
+                    load_time = time.time() - start_time
+                    memory_after = self.memory_monitor.get_memory_usage()
+                    memory_used = memory_after - memory_before
+                    self.load_statistics["successful_loads"] += 1
+                    if attempt > 0:
+                        self.load_statistics["retry_count"] += attempt
+                    self.plugin_memory_usage[plugin_name] = {
+                        "memory_before": memory_before,
+                        "memory_after": memory_after,
+                        "memory_diff": memory_used,
+                        "load_time": load_time,
+                        "retry_count": attempt,
+                    }
+                    result = PluginLoadResult(
+                        plugin_name=plugin_name, success=True,
+                        load_time=load_time, memory_used=memory_used, retry_count=attempt,
+                    )
+                    self.failed_plugins.pop(plugin_name, None)
+                    return result
+                last_error = "load_plugin returned False"
+            except Exception as exc:
+                last_error = str(exc)
+                self.logger.warning(f"插件 {plugin_name} 加载失败 (尝试 {attempt + 1}): {last_error}")
+
+            if attempt < self.load_config.max_retries:
+                await asyncio.sleep(self.load_config.retry_delay)
+
+        self.load_statistics["failed_loads"] += 1
+        result = PluginLoadResult(
+            plugin_name=plugin_name, success=False, error=last_error,
+            retry_count=self.load_config.max_retries, load_time=time.time() - start_time,
+        )
+        self.failed_plugins[plugin_name] = result
+        return result
+
+    async def retry_failed_plugins(self) -> None:
+        if not self.failed_plugins:
+            return
+        failed_names = list(self.failed_plugins.keys())
+        self.logger.info(f"重试失败的插件: {failed_names}")
+        for name in failed_names:
+            result = await self.load_plugin_with_retry(name)
+            if result.success:
+                self.logger.info(f"插件 {name} 重试成功")
+            else:
+                self.logger.error(f"插件 {name} 重试仍然失败: {result.error}")
+
+    def log_memory_report(self) -> str:
+        lines: list[str] = []
+        total_memory = self.memory_monitor.get_memory_usage()
+        available = self.memory_monitor.get_available_memory()
+        lines.append(f"进程内存: {total_memory:.1f}MB | 可用内存: {available:.1f}MB")
+        lines.append(f"加载统计: 尝试 {self.load_statistics['total_attempts']}, "
+                     f"成功 {self.load_statistics['successful_loads']}, "
+                     f"失败 {self.load_statistics['failed_loads']}, "
+                     f"重试 {self.load_statistics['retry_count']}")
+        lines.append(f"已加载插件: {len(self.loaded_plugins)}")
+
+        if self.plugin_memory_usage:
+            lines.append("--- 插件内存占用 ---")
+            for name, info in sorted(self.plugin_memory_usage.items()):
+                diff = info.get("memory_diff", 0)
+                load_time = info.get("load_time", 0)
+                lines.append(f"  {name}: {diff:+.1f}MB ({load_time:.2f}s)")
+
+        if self.failed_plugins:
+            lines.append("--- 失败插件 ---")
+            for name, result in self.failed_plugins.items():
+                lines.append(f"  {name}: {result.error}")
+
+        return "\n".join(lines)
+
+    def _start_memory_monitoring(self) -> None:
+        async def _monitor_loop() -> None:
+            while True:
+                await asyncio.sleep(300)
+                mem = self.memory_monitor.get_memory_usage()
+                self.logger.debug(f"内存监控: {mem:.1f}MB, 已加载插件: {len(self.loaded_plugins)}")
+
+        self._memory_monitor_task = asyncio.create_task(_monitor_loop())
+
+    def _stop_memory_monitoring(self) -> None:
+        if self._memory_monitor_task is not None:
+            self._memory_monitor_task.cancel()
+            self._memory_monitor_task = None
 
     async def load_plugin(self, plugin_name: str) -> bool:
         if plugin_name in self.loaded_plugins:
@@ -410,11 +637,17 @@ class PluginManager:
         try:
             if plugin_exists and plugin_loaded:
                 await self.reload_plugin(plugin_name)
+                if self._on_plugin_reloaded is not None:
+                    self._on_plugin_reloaded()
             elif plugin_exists:
                 await self.load_plugin(plugin_name)
+                if self._on_plugin_reloaded is not None:
+                    self._on_plugin_reloaded()
             elif plugin_loaded:
                 await self.unload_plugin(plugin_name)
                 self.logger.info(f"插件 {plugin_name} 文件已移除，已自动卸载")
+                if self._on_plugin_reloaded is not None:
+                    self._on_plugin_reloaded()
         except Exception as exc:
             self.logger.error(f"同步插件 {plugin_name} 状态失败: {exc}", exc_info=True)
 

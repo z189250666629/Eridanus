@@ -182,7 +182,8 @@ class PluginManager:
     def __init__(self, bot: ExtendBot, config: YAMLManager,
                  plugins_dir: str = PLUGINS_DIR,
                  plugins_module_prefix: str = PLUGINS_MODULE_PREFIX,
-                 load_config: PluginLoadConfig = None):
+                 load_config: PluginLoadConfig = None,
+                 on_plugin_reloaded: Callable[[], None] | None = None):
         self.plugins_module_prefix = plugins_module_prefix
         # 如果传入的不是PluginAwareExtendBot，则需要动态增强原bot
         if isinstance(bot, PluginAwareExtendBot):
@@ -227,6 +228,7 @@ class PluginManager:
         # 插件内存跟踪
         self.plugin_memory_usage: Dict[str, Dict] = {}
         self.memory_snapshots: Dict[str, Dict] = {}
+        self._on_plugin_reloaded = on_plugin_reloaded
 
     def _is_loadable_plugin_dir(self, plugin_dir: Path) -> bool:
         if not plugin_dir.is_dir():
@@ -1165,6 +1167,8 @@ class PluginManager:
 
             if success:
                 self.logger.info(f"插件 {plugin_name} 重载成功")
+                if self._on_plugin_reloaded is not None:
+                    self._on_plugin_reloaded()
             else:
                 self.logger.error(f"插件 {plugin_name} 重载失败")
 
