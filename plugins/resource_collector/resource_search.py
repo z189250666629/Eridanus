@@ -10,12 +10,12 @@ from core.message.message_components import Image, Node, Text, File, Card
 from core.toolkit.logger import get_logger
 from core.database.user import get_user
 from core.toolkit.pdf_encrypt import AsyncPDFEncryptor
-from plugins.resource_collector.service.asmr.asmr100 import random_asmr_100, latest_asmr_100, choose_from_latest_asmr_100, \
+from plugins.resource_collector.asmr.asmr100 import random_asmr_100, latest_asmr_100, choose_from_latest_asmr_100, \
     choose_from_hotest_asmr_100
-from plugins.resource_collector.service.jmComic.jmComic import JM_search, JM_search_week, JM_search_month, downloadComic, \
+from plugins.resource_collector.jmComic.jmComic import JM_search, JM_search_week, JM_search_month, downloadComic, \
     downloadALLAndToPdf, JM_search_id
-from plugins.resource_collector.service.zLibrary.zLib import search_book, download_book
-from plugins.resource_collector.service.zLibrary.zLibrary import Zlibrary
+from plugins.resource_collector.zLibrary.zLib import search_book, download_book
+from plugins.resource_collector.zLibrary.zLibrary import Zlibrary
 from core.toolkit.random_utils import random_str
 from core.toolkit.compat_utils import download_file, merge_audio_files, download_img, delay_recall
 import os

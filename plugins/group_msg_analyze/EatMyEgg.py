@@ -5,7 +5,7 @@ from core.services import get_service_registry
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
 from core.toolkit.gemini_keys import GeminiKeyManager
-from plugins.group_msg_analyze.service.prompt_constructer import gemini_prompt_construct_vGroup
+from plugins.group_msg_analyze.prompt_constructer import gemini_prompt_construct_vGroup
 
 
 def _get_gemini_api():

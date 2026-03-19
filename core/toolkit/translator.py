@@ -15,14 +15,14 @@ from core.toolkit.logger import get_logger
 
 def _get_default_model_request():
     module = importlib.import_module(
-        f"{PLUGINS_MODULE_PREFIX}.ai_llm.service.aiReplyHandler.default"
+        f"{PLUGINS_MODULE_PREFIX}.ai_llm.aiReplyHandler.default"
     )
     return module.defaultModelRequest
 
 
 def _get_yuan_qi_tencent():
     module = importlib.import_module(
-        f"{PLUGINS_MODULE_PREFIX}.ai_llm.service.aiReplyHandler.tecentYuanQi"
+        f"{PLUGINS_MODULE_PREFIX}.ai_llm.aiReplyHandler.tecentYuanQi"
     )
     return module.YuanQiTencent
 

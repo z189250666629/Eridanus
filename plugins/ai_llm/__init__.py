@@ -2,7 +2,7 @@ plugin_description = "AI LLM Plugin"
 
 # 动态导入列表
 dynamic_imports = {
-    "plugins.ai_llm.service.official_search_tool": ["search_with_official_api"],
+    "plugins.ai_llm.official_search_tool": ["search_with_official_api"],
 }
 
 # 函数声明
@@ -31,10 +31,10 @@ function_declarations = [
 def register_services(registry, provider: str = "ai_llm", **_kwargs):
     from plugins.ai_llm.clients.gemini_client import GeminiAPI
     from plugins.ai_llm.clients.openai_client import OpenAIAPI
-    from plugins.ai_llm.service.aiReplyCore import aiReplyCore
-    from plugins.ai_llm.service.aiReplyHandler.gemini import gemini_prompt_elements_construct
-    from plugins.ai_llm.service.aiReplyHandler.openai import prompt_elements_construct
-    from plugins.ai_llm.service.schemaReplyCore import schemaReplyCore
+    from plugins.ai_llm.aiReplyCore import aiReplyCore
+    from plugins.ai_llm.aiReplyHandler.gemini import gemini_prompt_elements_construct
+    from plugins.ai_llm.aiReplyHandler.openai import prompt_elements_construct
+    from plugins.ai_llm.schemaReplyCore import schemaReplyCore
 
     service_map = {
         "aiReplyCore": aiReplyCore,

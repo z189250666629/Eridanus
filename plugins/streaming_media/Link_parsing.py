@@ -7,10 +7,10 @@ import pprint
 import json as json_handle
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Image, File, Video, Node, Text, Image, Music, Json
-from plugins.streaming_media.service.Link_parsing.core.login_core import ini_login_Link_Prising
-from plugins.streaming_media.service.Link_parsing.Link_parsing import download_video_link_prising
-from plugins.streaming_media.service.Link_parsing.music_link_parsing import netease_music_link_parse
-from plugins.streaming_media.service.Link_parsing import *
+from plugins.streaming_media.Link_parsing.core.login_core import ini_login_Link_Prising
+from plugins.streaming_media.Link_parsing.Link_parsing import download_video_link_prising
+from plugins.streaming_media.Link_parsing.music_link_parsing import netease_music_link_parse
+from plugins.streaming_media.Link_parsing import *
 import traceback
 from collections import defaultdict
 from time import time

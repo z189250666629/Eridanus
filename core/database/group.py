@@ -33,7 +33,7 @@ def _get_gemini_prompt_elements_construct():
     if service is not None:
         return service
     module = importlib.import_module(
-        f"{PLUGINS_MODULE_PREFIX}.ai_llm.service.aiReplyHandler.gemini"
+        f"{PLUGINS_MODULE_PREFIX}.ai_llm.aiReplyHandler.gemini"
     )
     return module.gemini_prompt_elements_construct
 
@@ -46,12 +46,12 @@ def _get_openai_prompt_constructors():
     )
     if prompt_elements_construct is not None:
         module = importlib.import_module(
-            f"{PLUGINS_MODULE_PREFIX}.ai_llm.service.aiReplyHandler.openai"
+            f"{PLUGINS_MODULE_PREFIX}.ai_llm.aiReplyHandler.openai"
         )
         return prompt_elements_construct, module.prompt_elements_construct_old_version
 
     module = importlib.import_module(
-        f"{PLUGINS_MODULE_PREFIX}.ai_llm.service.aiReplyHandler.openai"
+        f"{PLUGINS_MODULE_PREFIX}.ai_llm.aiReplyHandler.openai"
     )
     return module.prompt_elements_construct, module.prompt_elements_construct_old_version
 

@@ -1,7 +1,7 @@
 from core.event.events import GroupMessageEvent
 from core.message.message_components import Image, Node, Text, File
 from plugins.resource_collector.func_collection import iwara_search, iwara_tendency
-from plugins.resource_collector.service.iwara.iwara1 import download_specific_video, search_videos, fetch_video_info
+from plugins.resource_collector.iwara.iwara1 import download_specific_video, search_videos, fetch_video_info
 from core.database.user import get_user
 
 def main(bot,config):

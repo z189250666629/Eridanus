@@ -9,7 +9,7 @@ def _get_manage_group_status():
     service = registry.get("manage_group_status") or registry.get("group_fun.manage_group_status")
     if service is not None:
         return service
-    return import_module("plugins.group_fun.service.wife_you_want").manage_group_status
+    return import_module("plugins.group_fun.wife_you_want").manage_group_status
 
 
 def _get_majsoul_pilimg():
@@ -17,11 +17,11 @@ def _get_majsoul_pilimg():
     service = registry.get("majsoul_PILimg") or registry.get("streaming_media.majsoul_PILimg")
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.service.Link_parsing").majsoul_PILimg
+    return import_module("plugins.streaming_media.Link_parsing").majsoul_PILimg
 
 
 def _get_majsoul_personal_info_checker():
-    from plugins.acg_infromation.service.majsoul.majsoul_plugin import check_for_majsoul_personal_info
+    from plugins.acg_infromation.majsoul_service.majsoul_plugin import check_for_majsoul_personal_info
     return check_for_majsoul_personal_info
 
 

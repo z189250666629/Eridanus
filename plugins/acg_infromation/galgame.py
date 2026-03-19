@@ -7,7 +7,7 @@ from asyncio import sleep
 from core.services import get_service_registry
 from core.event.events import GroupMessageEvent
 from core.message.message_components import Node, Text, Image, Text, Image, At
-from plugins.acg_infromation.service.galgame import Get_Access_Token,Get_Access_Token_json,flag_check,params_check,get_game_image, \
+from plugins.acg_infromation.galgame_api import Get_Access_Token,Get_Access_Token_json,flag_check,params_check,get_game_image, \
     context_assemble, get_introduction
 from core.draw import manshuo_draw
 
@@ -17,7 +17,7 @@ def _get_gal_pilimg():
     service = registry.get("gal_PILimg") or registry.get("streaming_media.gal_PILimg")
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.service.Link_parsing").gal_PILimg
+    return import_module("plugins.streaming_media.Link_parsing").gal_PILimg
 
 def main(bot,config):
 

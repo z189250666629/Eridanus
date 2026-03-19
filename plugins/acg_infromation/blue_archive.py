@@ -6,7 +6,7 @@ import yaml
 
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Image,Text
-from plugins.acg_infromation.service.arona_api import stageStrategy
+from plugins.acg_infromation.arona_api import stageStrategy
 
 
 

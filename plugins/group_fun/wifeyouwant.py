@@ -20,7 +20,7 @@ from apscheduler.triggers.cron import CronTrigger
 
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Node, Text, Image, At
-from plugins.group_fun.service.wife_you_want import manage_group_status, manage_group_add, \
+from plugins.group_fun.wife_you_want import manage_group_status, manage_group_add, \
     manage_group_check, PIL_lu_maker, \
     run_async_task, today_check_api, query_group_users, add_or_update_user_collect
 

@@ -8,10 +8,10 @@ from core.message.message_components import Node, Text, Image, Music
 from core.database.user import get_user
 from core.toolkit.random_utils import random_str
 from core.toolkit.compat_utils import download_img
-from plugins.basic_plugin.service.anime_setu import anime_setu, anime_setu1
-from plugins.basic_plugin.service.cloudMusic import cccdddm
-from plugins.basic_plugin.service.divination import tarotChoice
-from plugins.basic_plugin.service.weather_query import weather_query
+from plugins.basic_plugin.anime_setu import anime_setu, anime_setu1
+from plugins.basic_plugin.cloudMusic import cccdddm
+from plugins.basic_plugin.divination import tarotChoice
+from plugins.basic_plugin.weather_query import weather_query
 from core.draw import *
 """
 供func call调用

@@ -1,8 +1,8 @@
 import asyncio
 
 from core.draw import manshuo_draw
-from plugins.resource_collector.service.hitomi.HitomiParsing import HitomiPage
-from plugins.resource_collector.service.hitomi.drawer import render_hitomi_sections
+from plugins.resource_collector.hitomi.HitomiParsing import HitomiPage
+from plugins.resource_collector.hitomi.drawer import render_hitomi_sections
 
 from core.event.events import GroupMessageEvent
 from core.message.message_components import Image, Node, Text, File

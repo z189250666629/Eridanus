@@ -8,8 +8,8 @@ from core.event.events import GroupMessageEvent
 from core.message.message_components import File, Image, Video, Node, Text
 from core.services import get_service_registry
 from core.database.user import get_user
-from plugins.streaming_media.service.Link_parsing.Link_parsing import link_prising, download_video_link_prising
-from plugins.streaming_media.service.youtube.youtube_tools import get_img, audio_download, video_download
+from plugins.streaming_media.Link_parsing.Link_parsing import link_prising, download_video_link_prising
+from plugins.streaming_media.youtube.youtube_tools import get_img, audio_download, video_download
 from core.toolkit.random_utils import random_str
 from core.toolkit.compat_utils import download_img, download_file, merge_audio_files
 
@@ -22,7 +22,7 @@ def _get_parse_from_asmr_id():
     )
     if service is not None:
         return service
-    return import_module("plugins.resource_collector.service.asmr.asmr100").parse_from_asmr_id
+    return import_module("plugins.resource_collector.asmr.asmr100").parse_from_asmr_id
 
 
 async def download_video(bot,event,config,url,type="audio",platform="youtube"):

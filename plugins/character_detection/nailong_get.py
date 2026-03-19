@@ -18,7 +18,7 @@ def _get_ai_reply_core():
     service = registry.get("aiReplyCore") or registry.get("ai_llm.aiReplyCore")
     if service is not None:
         return service
-    return import_module("plugins.ai_llm.service.aiReplyCore").aiReplyCore
+    return import_module("plugins.ai_llm.aiReplyCore").aiReplyCore
 
 
 def main(bot, config):
@@ -36,9 +36,9 @@ def main(bot, config):
         bot.logger.info("Character Detection: No character detection service is enabled.")
         return
     else:
-        from plugins.character_detection.service.nailong11.nailong import main as nailong_main
-        from plugins.character_detection.service.doro.doro import main as doro_main
-        from plugins.character_detection.service.nanniang.nn import main as nn_main
+        from plugins.character_detection.nailong11.nailong import main as nailong_main
+        from plugins.character_detection.doro.doro import main as doro_main
+        from plugins.character_detection.nanniang.nn import main as nn_main
 
     nailong_groups = config.character_detection.nailong['whitelist']
     doro_groups = config.character_detection.doro['whitelist']

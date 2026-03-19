@@ -17,9 +17,9 @@ from core.message.message_components import At
 from core.database.group import get_last_20_and_convert_to_prompt
 from core.database.llm_db import delete_latest2_history, read_chara, use_folder_chara
 from core.database.user import get_user, update_user
-from plugins.ai_llm.service.aiReplyCore import aiReplyCore, send_text, count_tokens_approximate
-from plugins.ai_llm.service.heartflow_client import heartflow_request
-from plugins.ai_llm.service.schemaReplyCore import schemaReplyCore
+from plugins.ai_llm.aiReplyCore import aiReplyCore, send_text, count_tokens_approximate
+from plugins.ai_llm.heartflow_client import heartflow_request
+from plugins.ai_llm.schemaReplyCore import schemaReplyCore
 
 # 用于匹配 base64 数据URI的正则
 BASE64_PATTERN = re.compile(r'^data:([^;]+);base64,(.+)$', re.DOTALL)

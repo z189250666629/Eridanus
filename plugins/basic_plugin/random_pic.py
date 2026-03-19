@@ -9,7 +9,7 @@ from core.message.message_components import Image
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
 from core.toolkit.random_utils import random_str
-from plugins.basic_plugin.service.random_pic import random_img_search
+from plugins.basic_plugin.random_pic import random_img_search
 
 
 def main(bot: ExtendBot, config: YAMLManager):

@@ -29,8 +29,8 @@ function_declarations=[
 
 
 def register_services(registry, provider: str = "group_fun", **_kwargs):
-    from plugins.group_fun.service.lex_burner_Ninja import Lexburner_Ninja
-    from plugins.group_fun.service.wife_you_want import manage_group_status, today_check_api
+    from plugins.group_fun.lex_burner_Ninja import Lexburner_Ninja
+    from plugins.group_fun.wife_you_want import manage_group_status, today_check_api
 
     service_map = {
         "manage_group_status": manage_group_status,

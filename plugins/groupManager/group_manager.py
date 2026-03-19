@@ -12,7 +12,7 @@ def _get_ai_reply_core():
     service = registry.get("aiReplyCore") or registry.get("ai_llm.aiReplyCore")
     if service is not None:
         return service
-    return import_module("plugins.ai_llm.service.aiReplyCore").aiReplyCore
+    return import_module("plugins.ai_llm.aiReplyCore").aiReplyCore
 
 
 def _get_quit_group():

@@ -8,7 +8,7 @@ from core.event.events import GroupMessageEvent
 from core.message.message_components import Image, Reply,Video,Text,File,Node,At
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
-from plugins.meme_generate.service.meme import get_img_only_func,get_func
+from plugins.meme_generate.meme import get_img_only_func,get_func
 
 CONFIG_DIR = Path(__file__).resolve().parent / "config"
 mapping_path = str(CONFIG_DIR / "mapping.json")

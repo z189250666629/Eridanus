@@ -14,7 +14,7 @@ def _get_lexburner_ninja():
     service = registry.get("Lexburner_Ninja") or registry.get("group_fun.Lexburner_Ninja")
     if service is not None:
         return service
-    return import_module("plugins.group_fun.service.lex_burner_Ninja").Lexburner_Ninja
+    return import_module("plugins.group_fun.lex_burner_Ninja").Lexburner_Ninja
 
 
 def _get_download_video():

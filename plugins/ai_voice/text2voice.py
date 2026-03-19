@@ -5,7 +5,7 @@ from core.message.message_components import Record, Node, Text
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
 
-from plugins.ai_voice.service.tts import TTS
+from plugins.ai_voice.tts import TTS
 
 Tts=TTS()
 async def call_tts(bot,event,config,text,speaker=None,mood="中立"):

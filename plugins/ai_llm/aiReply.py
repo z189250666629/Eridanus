@@ -25,10 +25,10 @@ from core.database.llm_db import delete_user_history, clear_all_history, change_
 from core.database.user import get_user, update_user, clear_all_user_portraits
 from core.toolkit.gemini_keys import GeminiKeyManager
 from core.draw import manshuo_draw
-from plugins.ai_llm.service.aiReplyCore import aiReplyCore, send_text, count_tokens_approximate
-from plugins.ai_llm.service.auto_talk import check_message_similarity
-from plugins.ai_llm.service.schemaReplyCore import schemaReplyCore
-from plugins.ai_llm.service.utility_client import utility_request
+from plugins.ai_llm.aiReplyCore import aiReplyCore, send_text, count_tokens_approximate
+from plugins.ai_llm.auto_talk import check_message_similarity
+from plugins.ai_llm.schemaReplyCore import schemaReplyCore
+from plugins.ai_llm.utility_client import utility_request
 
 # 图片处理相关常量和函数
 BASE64_PATTERN = re.compile(r'^data:(image/\w+);base64,(.+)$')

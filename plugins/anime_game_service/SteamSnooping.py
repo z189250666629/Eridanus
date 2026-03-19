@@ -5,7 +5,7 @@ from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Text, Image, At
 from core.database import AsyncSQLiteDatabase
 from core.draw import *
-from plugins.anime_game_service.service.SteamSnooping import *
+from plugins.anime_game_service.SteamSnooping import *
 import threading
 
 

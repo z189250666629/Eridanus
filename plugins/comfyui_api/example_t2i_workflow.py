@@ -27,7 +27,7 @@ for url in COMFYUI_URLS:
 
 
 def _get_pic_audit_standalone():
-    return import_module("plugins.ai_generated_art.service.setu_moderate").pic_audit_standalone
+    return import_module("plugins.ai_generated_art.setu_moderate").pic_audit_standalone
 
 # Part 2: 核心工作流函数
 async def run_workflow(prompt, config, output_dir: str = "data/pictures/cache"):

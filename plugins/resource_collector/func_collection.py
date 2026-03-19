@@ -6,7 +6,7 @@ from core.bot.extend_bot import ExtendBot
 from core.toolkit.compat_utils import delay_recall
 from core.toolkit.archive import compress_files, sanitize_filename
 from core.toolkit.archive_pwd import compress_files_with_pwd
-from plugins.resource_collector.service.iwara.iwara1 import search_videos, download_specific_video, fetch_video_info
+from plugins.resource_collector.iwara.iwara1 import search_videos, download_specific_video, fetch_video_info
 
 
 async def iwara_search(bot:ExtendBot,event:GroupMessageEvent,config,aim:str,operation:str):

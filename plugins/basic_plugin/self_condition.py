@@ -6,7 +6,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 import time
 from datetime import datetime
-from plugins.basic_plugin.service.self_condition import self_info_record
+from plugins.basic_plugin.self_condition import self_info_record
 
 
 

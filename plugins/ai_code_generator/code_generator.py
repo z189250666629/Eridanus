@@ -3,7 +3,7 @@ from core.message.message_components import Text
 from core.database.user import get_user
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
-from plugins.ai_code_generator.service.AiPluginGenerator import code_generate
+from plugins.ai_code_generator.AiPluginGenerator import code_generate
 
 
 def main(bot: ExtendBot,config: YAMLManager):

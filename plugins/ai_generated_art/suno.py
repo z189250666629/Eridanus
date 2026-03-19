@@ -11,7 +11,7 @@ from core.database.user import get_user
 from core.bot.extend_bot import ExtendBot
 from core.toolkit.compat_utils import delay_recall
 
-from plugins.ai_generated_art.service.suno_api import generate_songs
+from plugins.ai_generated_art.suno_api import generate_songs
 
 SUNO_USAGE_FILE_PATH = Path("data/suno_uses.json")
 

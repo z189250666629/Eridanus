@@ -7,7 +7,7 @@ from core.toolkit.compat_utils import delay_recall
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Node, Text, Image, At
 from asyncio import sleep
-from plugins.group_fun.service.lu import *
+from plugins.group_fun.lu import *
 from core.draw import *
 
 def main(bot, config):

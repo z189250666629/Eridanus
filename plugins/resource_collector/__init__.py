@@ -159,7 +159,7 @@ function_declarations=[
 
 
 def register_services(registry, provider: str = "resource_collector", **_kwargs):
-    from plugins.resource_collector.service.asmr.asmr100 import (
+    from plugins.resource_collector.asmr.asmr100 import (
         parse_from_asmr_id,
         random_asmr_100,
     )

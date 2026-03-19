@@ -5,7 +5,7 @@ from core.message.message_components import File, Image, Video, Node, Text, At
 from core.bot.extend_bot import ExtendBot
 from core.draw import manshuo_draw
 from core.toolkit.compat_utils import download_img
-from plugins.streaming_media.service.cloud_music.cloud_music_parsing import CloudMusicParser
+from plugins.streaming_media.cloud_music.cloud_music_parsing import CloudMusicParser
 import traceback
 import re
 import pprint

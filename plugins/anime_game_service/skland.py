@@ -1,7 +1,7 @@
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Text, Image, At
 from core.draw import *
-from plugins.anime_game_service.service.skland import *
+from plugins.anime_game_service.skland import *
 
 
 def main(bot, config):

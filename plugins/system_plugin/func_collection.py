@@ -20,7 +20,7 @@ def _get_danxianglii():
     service = registry.get("danxianglii") or registry.get("basic_plugin.danxianglii")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.life_service").danxianglii
+    return import_module("plugins.basic_plugin.life_service").danxianglii
 
 
 def _get_today_check_api():
@@ -28,7 +28,7 @@ def _get_today_check_api():
     service = registry.get("today_check_api") or registry.get("group_fun.today_check_api")
     if service is not None:
         return service
-    return import_module("plugins.group_fun.service.wife_you_want").today_check_api
+    return import_module("plugins.group_fun.wife_you_want").today_check_api
 
 
 def _get_nasa_apod():
@@ -36,7 +36,7 @@ def _get_nasa_apod():
     service = registry.get("get_nasa_apod") or registry.get("basic_plugin.get_nasa_apod")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.nasa_api").get_nasa_apod
+    return import_module("plugins.basic_plugin.nasa_api").get_nasa_apod
 
 
 def _get_tarot_choice():
@@ -44,7 +44,7 @@ def _get_tarot_choice():
     service = registry.get("tarotChoice") or registry.get("basic_plugin.tarotChoice")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.divination").tarotChoice
+    return import_module("plugins.basic_plugin.divination").tarotChoice
 
 
 def _get_fetch_latest_dynamic():
@@ -55,7 +55,7 @@ def _get_fetch_latest_dynamic():
     )
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.service.bilibili.bili").fetch_latest_dynamic
+    return import_module("plugins.streaming_media.bilibili.bili").fetch_latest_dynamic
 
 
 def _get_fetch_latest_dynamic_id():
@@ -66,7 +66,7 @@ def _get_fetch_latest_dynamic_id():
     )
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.service.bilibili.bili").fetch_latest_dynamic_id
+    return import_module("plugins.streaming_media.bilibili.bili").fetch_latest_dynamic_id
 
 
 async def operate_group_push_tasks(bot,event:GroupMessageEvent,config,task_type:str,operation:bool,target_uid:int=None):

@@ -12,7 +12,7 @@ from apscheduler.triggers.cron import CronTrigger
 from core.services import get_service_registry
 from core.event.events import GroupMessageEvent
 from core.message.message_components import Text, Image
-from plugins.acg_infromation.service.bangumisearch import banguimiList, bangumisearch, screenshot_to_pdf_and_png, \
+from plugins.acg_infromation.bangumisearch import banguimiList, bangumisearch, screenshot_to_pdf_and_png, \
     run_async_task, daily_task
 
 
@@ -21,7 +21,7 @@ def _get_bangumi_pilimg():
     service = registry.get("bangumi_PILimg") or registry.get("streaming_media.bangumi_PILimg")
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.service.Link_parsing.Link_parsing").bangumi_PILimg
+    return import_module("plugins.streaming_media.Link_parsing.Link_parsing").bangumi_PILimg
 
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

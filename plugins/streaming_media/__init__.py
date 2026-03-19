@@ -49,9 +49,9 @@ function_declarations=[
 
 
 def register_services(registry, provider: str = "streaming_media", **_kwargs):
-    from plugins.streaming_media.service.Link_parsing import bangumi_PILimg
-    from plugins.streaming_media.service.Link_parsing import majsoul_PILimg
-    from plugins.streaming_media.service.bilibili.bili import (
+    from plugins.streaming_media.Link_parsing import bangumi_PILimg
+    from plugins.streaming_media.Link_parsing import majsoul_PILimg
+    from plugins.streaming_media.bilibili.bili import (
         fetch_latest_dynamic,
         fetch_latest_dynamic_id,
     )

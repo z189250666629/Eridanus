@@ -18,8 +18,8 @@ from core.message.message_components import Image, Text
 from core.database.user import get_user
 from core.bot.extend_bot import ExtendBot
 from core.toolkit.compat_utils import get_img, delay_recall
-from plugins.ai_generated_art.service.nano_banana.gemini_official_banana import call_gemini_api
-from plugins.ai_generated_art.service.nano_banana.unofficial_banana import call_openrouter_api
+from plugins.ai_generated_art.nano_banana.gemini_official_banana import call_gemini_api
+from plugins.ai_generated_art.nano_banana.unofficial_banana import call_openrouter_api
 
 
 # 使用记录文件路径

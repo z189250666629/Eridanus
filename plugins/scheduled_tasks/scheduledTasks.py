@@ -24,7 +24,7 @@ def _get_ai_reply_core():
     service = registry.get("aiReplyCore") or registry.get("ai_llm.aiReplyCore")
     if service is not None:
         return service
-    return import_module("plugins.ai_llm.service.aiReplyCore").aiReplyCore
+    return import_module("plugins.ai_llm.aiReplyCore").aiReplyCore
 
 
 def _get_bing_every_day():
@@ -32,7 +32,7 @@ def _get_bing_every_day():
     service = registry.get("bingEveryDay") or registry.get("basic_plugin.bingEveryDay")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.life_service").bingEveryDay
+    return import_module("plugins.basic_plugin.life_service").bingEveryDay
 
 
 def _get_danxianglii():
@@ -40,7 +40,7 @@ def _get_danxianglii():
     service = registry.get("danxianglii") or registry.get("basic_plugin.danxianglii")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.life_service").danxianglii
+    return import_module("plugins.basic_plugin.life_service").danxianglii
 
 
 def _get_nasa_apod():
@@ -48,7 +48,7 @@ def _get_nasa_apod():
     service = registry.get("get_nasa_apod") or registry.get("basic_plugin.get_nasa_apod")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.nasa_api").get_nasa_apod
+    return import_module("plugins.basic_plugin.nasa_api").get_nasa_apod
 
 
 def _get_free_weather_query():
@@ -56,7 +56,7 @@ def _get_free_weather_query():
     service = registry.get("free_weather_query") or registry.get("basic_plugin.free_weather_query")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.weather_query").free_weather_query
+    return import_module("plugins.basic_plugin.weather_query").free_weather_query
 
 
 def _get_lexburner_ninja():
@@ -64,7 +64,7 @@ def _get_lexburner_ninja():
     service = registry.get("Lexburner_Ninja") or registry.get("group_fun.Lexburner_Ninja")
     if service is not None:
         return service
-    return import_module("plugins.group_fun.service.lex_burner_Ninja").Lexburner_Ninja
+    return import_module("plugins.group_fun.lex_burner_Ninja").Lexburner_Ninja
 
 
 def _get_bangumi_pilimg():
@@ -72,7 +72,7 @@ def _get_bangumi_pilimg():
     service = registry.get("bangumi_PILimg") or registry.get("streaming_media.bangumi_PILimg")
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.service.Link_parsing.Link_parsing").bangumi_PILimg
+    return import_module("plugins.streaming_media.Link_parsing.Link_parsing").bangumi_PILimg
 
 
 def _get_random_asmr_100():
@@ -80,7 +80,7 @@ def _get_random_asmr_100():
     service = registry.get("random_asmr_100") or registry.get("resource_collector.random_asmr_100")
     if service is not None:
         return service
-    return import_module("plugins.resource_collector.service.asmr.asmr100").random_asmr_100
+    return import_module("plugins.resource_collector.asmr.asmr100").random_asmr_100
 
 
 def _get_epic_free_game_get():
@@ -88,7 +88,7 @@ def _get_epic_free_game_get():
     service = registry.get("epic_free_game_get") or registry.get("anime_game_service.epic_free_game_get")
     if service is not None:
         return service
-    return import_module("plugins.anime_game_service.service.epicfree").epic_free_game_get
+    return import_module("plugins.anime_game_service.epicfree").epic_free_game_get
 
 
 def _get_trigger_tasks():

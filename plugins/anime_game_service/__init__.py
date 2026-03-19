@@ -2,7 +2,7 @@ plugin_description = "Anime Game Service"
 
 
 def register_services(registry, provider: str = "anime_game_service", **_kwargs):
-    from plugins.anime_game_service.service.epicfree import epic_free_game_get
+    from plugins.anime_game_service.epicfree import epic_free_game_get
 
     service_map = {
         "epic_free_game_get": epic_free_game_get,

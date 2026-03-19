@@ -14,7 +14,7 @@ def _get_anime_trace():
     service = registry.get("anime_trace") or registry.get("basic_plugin.anime_trace")
     if service is not None:
         return service
-    return import_module("plugins.basic_plugin.service.imgae_search.anime_trace").anime_trace
+    return import_module("plugins.basic_plugin.imgae_search.anime_trace").anime_trace
 
 
 async def call_character_identify(bot, event,config,image_url,model_name):

@@ -6,9 +6,9 @@ from asyncio import sleep, Lock
 from core.services import get_service_registry
 from core.event.events import GroupMessageEvent, LifecycleMetaEvent
 from core.message.message_components import Image
-from plugins.streaming_media.service.Link_parsing.Link_parsing import link_prising
-from plugins.streaming_media.service.bilibili.bili import fetch_latest_dynamic_id, fetch_dynamic
-from plugins.streaming_media.service.bilibili.BiliCooikeManager import BiliCookieManager
+from plugins.streaming_media.Link_parsing.Link_parsing import link_prising
+from plugins.streaming_media.bilibili.bili import fetch_latest_dynamic_id, fetch_dynamic
+from plugins.streaming_media.bilibili.BiliCooikeManager import BiliCookieManager
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

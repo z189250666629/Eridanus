@@ -43,7 +43,7 @@ function_declarations=[
 
 def register_services(registry, provider: str = "ai_generated_art", **_kwargs):
     from plugins.ai_generated_art.aiDraw import call_text2img1
-    from plugins.ai_generated_art.service.simple_text2img import simple_call_text2img1
+    from plugins.ai_generated_art.simple_text2img import simple_call_text2img1
 
     service_map = {
         "call_text2img1": call_text2img1,

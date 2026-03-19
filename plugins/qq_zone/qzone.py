@@ -36,7 +36,7 @@ from core.message.message_components import Text, Image, Mface
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
 from core.toolkit.compat_utils import download_img, get_img
-from plugins.qq_zone.service.QzoneApiFixed import QzoneApiFixed
+from plugins.qq_zone.QzoneApiFixed import QzoneApiFixed
 
 
 def _get_ai_reply_core():
@@ -44,7 +44,7 @@ def _get_ai_reply_core():
     service = registry.get("aiReplyCore") or registry.get("ai_llm.aiReplyCore")
     if service is not None:
         return service
-    return import_module("plugins.ai_llm.service.aiReplyCore").aiReplyCore
+    return import_module("plugins.ai_llm.aiReplyCore").aiReplyCore
 
 
 def _get_simple_call_text2img1():
@@ -52,7 +52,7 @@ def _get_simple_call_text2img1():
     service = registry.get("simple_call_text2img1") or registry.get("ai_generated_art.simple_call_text2img1")
     if service is not None:
         return service
-    return import_module("plugins.ai_generated_art.service.simple_text2img").simple_call_text2img1
+    return import_module("plugins.ai_generated_art.simple_text2img").simple_call_text2img1
 
 
 def main(bot: ExtendBot,config: YAMLManager):

@@ -10,8 +10,8 @@ from core.database.user import get_user
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
 from core.toolkit.compat_utils import download_img
-from plugins.auto_reply.service.cache_layer import CacheManager
-from plugins.auto_reply.service.keyword_manager import KeywordManager
+from plugins.auto_reply.cache_layer import CacheManager
+from plugins.auto_reply.keyword_manager import KeywordManager
 
 # 全局实例
 keyword_manager = None

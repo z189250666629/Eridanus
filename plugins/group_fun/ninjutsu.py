@@ -3,7 +3,7 @@ from core.event.events import GroupMessageEvent
 from core.bot.extend_bot import ExtendBot
 from core.config.manager import YAMLManager
 from plugins.group_fun.func_collection import random_ninjutsu, query_ninjutsu
-from plugins.group_fun.service.lex_burner_Ninja import Lexburner_Ninja
+from plugins.group_fun.lex_burner_Ninja import Lexburner_Ninja
 
 
 def main(bot: ExtendBot,config: YAMLManager):

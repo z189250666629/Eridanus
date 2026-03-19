@@ -103,12 +103,12 @@ function_declarations=[
 
 
 def register_services(registry, provider: str = "basic_plugin", **_kwargs):
-    from plugins.basic_plugin.service.ai_text2img import bing_dalle3, doubao, flux_ultra
-    from plugins.basic_plugin.service.divination import tarotChoice
-    from plugins.basic_plugin.service.imgae_search.anime_trace import anime_trace
-    from plugins.basic_plugin.service.life_service import bingEveryDay, danxianglii
-    from plugins.basic_plugin.service.nasa_api import get_nasa_apod
-    from plugins.basic_plugin.service.weather_query import free_weather_query
+    from plugins.basic_plugin.ai_text2img import bing_dalle3, doubao, flux_ultra
+    from plugins.basic_plugin.divination import tarotChoice
+    from plugins.basic_plugin.imgae_search.anime_trace import anime_trace
+    from plugins.basic_plugin.life_service import bingEveryDay, danxianglii
+    from plugins.basic_plugin.nasa_api import get_nasa_apod
+    from plugins.basic_plugin.weather_query import free_weather_query
 
     service_map = {
         "bingEveryDay": bingEveryDay,

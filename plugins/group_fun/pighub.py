@@ -1,6 +1,6 @@
 from core.event.events import GroupMessageEvent
 from core.message.message_components import Text, Image, At
-from plugins.group_fun.service.today_pig import *
+from plugins.group_fun.today_pig import *
 
 
 def main(bot, config):
