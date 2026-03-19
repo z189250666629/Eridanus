@@ -22,7 +22,7 @@ def _get_download_video():
     service = registry.get("download_video") or registry.get("streaming_media.download_video")
     if service is not None:
         return service
-    return import_module("plugins.streaming_media.youtube").download_video
+    return import_module("plugins.streaming_media.youtube_plugin").download_video
 
 
 ninja = _get_lexburner_ninja()()
@@ -59,6 +59,5 @@ async def query_ninjutsu(bot: ExtendBot,event,config: YAMLManager,name):
     except Exception as e:
         bot.logger.error(f"忍术查询失败: {e}")
         await bot.send(event, _build_no_image_message("找不到这个忍术，请检查拼写或重新输入"))
-
 
 

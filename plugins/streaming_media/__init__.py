@@ -1,7 +1,7 @@
 plugin_description="媒体服务"
 
 dynamic_imports ={
-    "plugins.streaming_media.youtube": ["download_video"],
+    "plugins.streaming_media.youtube_plugin": ["download_video"],
     "plugins.streaming_media.cloud_music_parsing": ["parse_cloud_music"]
 }
 function_declarations=[
@@ -55,7 +55,7 @@ def register_services(registry, provider: str = "streaming_media", **_kwargs):
         fetch_latest_dynamic,
         fetch_latest_dynamic_id,
     )
-    from plugins.streaming_media.youtube import download_video
+    from plugins.streaming_media.youtube_plugin import download_video
 
     service_map = {
         "bangumi_PILimg": bangumi_PILimg,
@@ -83,4 +83,3 @@ def register_services(registry, provider: str = "streaming_media", **_kwargs):
 
 def unregister_services(registry, provider: str = "streaming_media", **_kwargs):
     registry.unregister_by_provider(provider)
-
